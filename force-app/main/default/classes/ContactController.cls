@@ -1,15 +1,11 @@
 public with sharing class ContactController {
     @AuraEnabled(cacheable=true)
     public static List<Contact> getContacts() {
-        List<Contact> contacts = [
+        return [
             SELECT FirstName, LastName, Email
             FROM Contact
             WITH SECURITY_ENFORCED
             ORDER BY FirstName
         ];
-        if (contacts.isEmpty()) {
-            throw new AuraHandledException('No contacts found');
-        }
-        return contacts;
     }
 }
